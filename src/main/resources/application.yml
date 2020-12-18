@@ -1,0 +1,5 @@
+coding4fun:
+  logging:
+    enable: true
+    name: UNKNOWN
+    format: true
