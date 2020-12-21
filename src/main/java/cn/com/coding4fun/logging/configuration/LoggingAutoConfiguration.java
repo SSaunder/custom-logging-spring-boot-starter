@@ -10,20 +10,20 @@ import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 @Configuration
 @EnableConfigurationProperties({LoggingProperties.class})
-@AutoConfigureAfter(AopAutoConfiguration.class)
-@ConditionalOnProperty(value = {"coding4fun.logging.enable"}, matchIfMissing = true)
+@AutoConfigureAfter({AopAutoConfiguration.class, MongoAutoConfiguration.class} )
+@ConditionalOnProperty(value = {"coding4fun.logging.enable"})
 public class LoggingAutoConfiguration {
 
 	@Bean
@@ -40,8 +40,7 @@ public class LoggingAutoConfiguration {
 	@Bean(destroyMethod = "close")
 	public DatabaseReader geoIp2Lite() throws IOException {
 		return new DatabaseReader
-				.Builder(new ClassPathResource("GeoLite2-City.mmdb")
-				.getFile())
+				.Builder(new ClassPathResource("GeoLite2-City.mmdb").getInputStream())
 				.locales(Arrays.asList("zh-CN"))
 				.withCache(new CHMCache()).build();
 	}
@@ -55,7 +54,4 @@ public class LoggingAutoConfiguration {
 		@ConditionalOnProperty(prefix = "spring.aop", name = "proxy-target-class", havingValue = "false", matchIfMissing = false)
 		public static class JdkDynamicAutoProxyConfiguration {}
 	}
-
-
-
 }

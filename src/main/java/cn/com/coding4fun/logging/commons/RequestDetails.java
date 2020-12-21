@@ -1,9 +1,19 @@
 package cn.com.coding4fun.logging.commons;
 
+import cn.com.coding4fun.logging.support.LoggingManager;
+
 import java.io.Serializable;
 
+/**
+ * 请求详细信息
+ */
 public class RequestDetails implements Serializable {
 
+	/**
+	 * 当前请求的真实用户名
+	 * 详情查看{@link LoggingManager#getUsername()}接口获取用户名
+	 */
+	private String username;
 	/**
 	 * 客户端真实IP
 	 */
@@ -48,6 +58,14 @@ public class RequestDetails implements Serializable {
 	 * 错误栈信息
 	 */
 	private String stackTrace;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getClientIp() {
 		return clientIp;
@@ -140,7 +158,8 @@ public class RequestDetails implements Serializable {
 	@Override
 	public String toString() {
 		return "RequestDetails{" +
-				"clientIp='" + clientIp + '\'' +
+				"username='" + username + '\'' +
+				", clientIp='" + clientIp + '\'' +
 				", ipAddress='" + ipAddress + '\'' +
 				", uri='" + uri + '\'' +
 				", method='" + method + '\'' +

@@ -1,5 +1,9 @@
 coding4fun:
   logging:
     enable: true
-    name: UNKNOWN
+    name: LEARN
     format: true
+spring:
+  data:
+    mongodb:
+      uri: mongodb://192.168.31.196:27017/coding4fun-logs

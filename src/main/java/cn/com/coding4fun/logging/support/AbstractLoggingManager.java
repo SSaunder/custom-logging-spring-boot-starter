@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractLoggingManager {
+public abstract class AbstractLoggingManager implements LoggingManager {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -46,9 +46,9 @@ public abstract class AbstractLoggingManager {
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 	}
 
-	public abstract void finish(RequestDetails request, OperationDetails operation, Object result);
+	public abstract void finish(RequestDetails request, OperationDetails operation, String name, Object result);
 
-	public abstract void afterThrow(RequestDetails request, OperationDetails operation, Throwable ex);
+	public abstract void afterThrow(RequestDetails request, OperationDetails operation, String name, Throwable ex);
 
 	/**
 	 * 处理切入点
@@ -70,7 +70,6 @@ public abstract class AbstractLoggingManager {
 		Object result = invocation.proceed();
 		try {
 			processResponseDetails(result, details);
-			defaultPrintRequestDetailsLogging();
 		} catch (Exception e) {
 			logger.error("response result process failed", e);
 		} finally {
@@ -87,8 +86,7 @@ public abstract class AbstractLoggingManager {
 		RequestDetails requestDetails = RequestDetailsSupport.get();
 		OperationDetails operationDetails = OperationDetailsSupport.get();
 		requestDetails.setStackTrace(ExceptionUtils.getStackTrace(throwable));
-		afterThrow(requestDetails, operationDetails, throwable);
-		defaultPrintRequestDetailsLogging();
+		afterThrow(requestDetails, operationDetails, properties.getName().name(), throwable);
 		remove();
 	}
 
@@ -106,6 +104,7 @@ public abstract class AbstractLoggingManager {
 		details.setIpAddress(GeoIPLite2Utils.resolverIp(details.getClientIp()));
 		details.setAuthorization(request.getHeader(LoggingConstantUtils.AUTHORIZATION));
 		details.setRequestTime(DateTimeFormatUtils.format(LocalDateTime.now()));
+		details.setUsername(getUsername());
 	}
 
 	/**
@@ -176,24 +175,29 @@ public abstract class AbstractLoggingManager {
 	private void processFinish(Object result) {
 		RequestDetails requestDetails = RequestDetailsSupport.get();
 		OperationDetails operationDetails = OperationDetailsSupport.get();
-		finish(requestDetails, operationDetails, result);
+		finish(requestDetails, operationDetails, properties.getName().name(), result);
 		remove();
 	}
 
 	/**
 	 * 默认打印日志方法
 	 */
-	public void defaultPrintRequestDetailsLogging() {
+	public void defaultFinish() {
 		RequestDetails requestDetails = RequestDetailsSupport.get();
+		OperationDetails operationDetails = OperationDetailsSupport.get();
 		if (properties.isFormat()) {
 			try {
-				logger.info("\n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestDetails));
+				logger.info("\nRequest Details：\n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestDetails)
+						+ "\nOperation Details：\n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(operationDetails)
+				);
 			} catch (JsonProcessingException e) {
 				logger.error("logging print error", e);
 			}
 		} else {
 			try {
-				logger.info("\n" + mapper.writeValueAsString(requestDetails));
+				logger.info("\nRequest Details：\n" + mapper.writeValueAsString(requestDetails)
+						+ "\nOperation Details：\n" + mapper.writeValueAsString(operationDetails)
+				);
 			} catch (JsonProcessingException e) {
 				logger.error("logging print error", e);
 			}

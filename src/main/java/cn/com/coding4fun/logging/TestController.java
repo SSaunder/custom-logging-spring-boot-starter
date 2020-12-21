@@ -15,8 +15,8 @@ public class TestController {
 	@GetMapping("/")
 	public String test(@RequestParam String a,
 					   @RequestParam String b) throws Exception {
-		return GeoIPLite2Utils.resolverIp("36.106.97.90");
-//		throw new Exception("111");
+//		return GeoIPLite2Utils.resolverIp("36.106.97.90");
+		throw new Exception("111");
 	}
 
 }

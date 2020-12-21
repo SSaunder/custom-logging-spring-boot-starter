@@ -2,7 +2,7 @@ package cn.com.coding4fun.logging.annotation;
 
 import cn.com.coding4fun.logging.configuration.LoggingProperties;
 import cn.com.coding4fun.logging.support.AbstractLoggingManager;
-import cn.com.coding4fun.logging.support.LoggingManager;
+import cn.com.coding4fun.logging.support.LoggingManagerImpl;
 import cn.com.coding4fun.logging.support.LoggingPointcutAdvisor;
 import cn.com.coding4fun.logging.support.LoggingPointcutThrowingAdvisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -25,9 +25,15 @@ public class ProxyLoggingManagementConfiguration implements ImportAware {
 
 	@Bean
 	@ConditionalOnMissingBean(AbstractLoggingManager.class)
-	public LoggingManager loggingManager(@Autowired LoggingProperties properties) {
-		return new LoggingManager(properties);
+	public LoggingManagerImpl loggingManager(@Autowired LoggingProperties properties) {
+		return new LoggingManagerImpl(properties);
 	}
+
+//	@Bean
+//	public LoggingManagerMongoImpl loggingManager(@Autowired LoggingProperties properties,
+//												  @Autowired MongoTemplate template) {
+//		return new LoggingManagerMongoImpl(properties, template);
+//	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
