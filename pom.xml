@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>cn.com.coding4fun</groupId>
-  <artifactId>coding4fun-spring-boot-logging</artifactId>
+  <artifactId>custom-spring-boot-logging</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>coding4fun-spring-boot-logging</name>
   <description>Demo project for Spring Boot</description>
