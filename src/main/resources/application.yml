@@ -1,4 +1,4 @@
-coding4fun:
+custom:
   logging:
     enable: true
     name: LEARN
@@ -6,4 +6,4 @@ coding4fun:
 spring:
   data:
     mongodb:
-      uri: mongodb://192.168.31.196:27017/coding4fun-logs
+      uri: mongodb://192.168.31.196:27017/custom-logs

@@ -9,8 +9,8 @@
 1. 添加`custom-spring-boot-stater`依赖`pom.xml`文件
     ```java
     <dependency>
-      <groupId>cn.com.coding4fun</groupId>
-      <artifactId>custom-spring-boot-logging</artifactId>
+      <groupId>com.github.ssaunder</groupId>
+      <artifactId>logging-spring-boot-starter</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     ```
@@ -26,7 +26,7 @@
 3. 在`application.yml`配置日志输出情况
 
     ```
-    coding4fun:
+    custom:
       logging:
         enable: true
         name: LEARN

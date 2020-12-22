@@ -8,10 +8,10 @@
     <version>2.4.0</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>cn.com.coding4fun</groupId>
-  <artifactId>custom-spring-boot-logging</artifactId>
+  <groupId>com.github.ssaunder</groupId>
+  <artifactId>logging-spring-boot-starter</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>coding4fun-spring-boot-logging</name>
+  <name>logging-spring-boot-starter</name>
   <description>Demo project for Spring Boot</description>
 
   <properties>
@@ -76,11 +76,11 @@
             <exclude>templates/**</exclude>
             <exclude>application.yml</exclude>
             <exclude>application.properties</exclude>
-            <exclude>cn/com/coding4fun/logging/Application.class</exclude>
-            <exclude>cn/com/coding4fun/logging/TestController.class</exclude>
-            <exclude>cn/com/coding4fun/logging/support/mongo/LoggingResult.class</exclude>
-            <exclude>cn/com/coding4fun/logging/support/mongo</exclude>
-            <exclude>cn/com/coding4fun/logging/support/LoggingManagerMongoImpl.class</exclude>
+            <exclude>com/github/ssaunder/logging/Application.class</exclude>
+            <exclude>com/github/ssaunder/logging/TestController.class</exclude>
+            <exclude>com/github/ssaunder/logging/support/mongo/LoggingResult.class</exclude>
+            <exclude>com/github/ssaunder/logging/support/mongo</exclude>
+            <exclude>com/github/ssaunder/logging/support/LoggingManagerMongoImpl.class</exclude>
           </excludes>
           <includes>
             <include>GeoLite2-City.mmdb</include>
