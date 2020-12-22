@@ -16,6 +16,10 @@ public class LoggingProperties implements InitializingBean {
 	 */
 	private boolean enable;
 	/**
+	 * 运行环境
+	 */
+	private String runtimeEnv = "default";
+	/**
 	 * 系统名称
 	 */
 	private LoggingSystemEnum name;
@@ -38,6 +42,7 @@ public class LoggingProperties implements InitializingBean {
 
 	public LoggingProperties() {
 		this.enable = false;
+		this.runtimeEnv = "default";
 		this.name = LoggingSystemEnum.UNKNOWN;
 		this.operation = new Operation();
 		this.login = new Login();
@@ -51,6 +56,14 @@ public class LoggingProperties implements InitializingBean {
 
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	public String getRuntimeEnv() {
+		return runtimeEnv;
+	}
+
+	public void setRuntimeEnv(String runtimeEnv) {
+		this.runtimeEnv = runtimeEnv;
 	}
 
 	public LoggingSystemEnum getName() {

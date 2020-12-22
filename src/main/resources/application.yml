@@ -3,7 +3,8 @@ custom:
     enable: true
     name: LEARN
     format: true
+    runtime-env: default
 spring:
   data:
     mongodb:
-      uri: mongodb://192.168.31.196:27017/custom-logs
+      uri: mongodb://192.168.31.196:27017/coding4fun-logs

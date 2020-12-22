@@ -47,7 +47,7 @@ public class LoggingAutoConfiguration {
 
 	@Configuration
 	@ConditionalOnMissingBean(ProxyLoggingManagementConfiguration.class)
-	public static class EnableTransactionManagementConfiguration {
+	public static class EnableLoggingManagementConfiguration {
 
 		@Configuration
 		@EnableLoggingManagement
