@@ -10,6 +10,7 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -27,24 +28,24 @@ public class ProxyLoggingManagementConfiguration implements ImportAware {
 	protected AnnotationAttributes enableLogging;
 
 	@Configuration
-	@ConditionalOnProperty(prefix = "custom.logging", value = "runtimeEnv", havingValue = "default")
-	public static class DefaultLoggingManager {
+	@ConditionalOnProperty(prefix = "custom.logging", value = "runtime-env", havingValue = "default")
+	public static class DefaultLoggingManagerInstance {
 
 		@Bean
 		@ConditionalOnMissingBean(AbstractLoggingManager.class)
-		public LoggingManagerImpl loggingManager(@Autowired LoggingProperties properties) {
+		public LoggingManagerImpl defaultLoggingManager(@Autowired LoggingProperties properties) {
 			return new LoggingManagerImpl(properties);
 		}
 	}
 
 	@Configuration
-	@ConditionalOnProperty(prefix = "custom.logging", value = "runtimeEnv", havingValue = "mongo")
-	public static class MongoLoggingManager {
+	@ConditionalOnProperty(prefix = "custom.logging", value = "runtime-env", havingValue = "mongo")
+	public static class MongoLoggingManagerInstance {
 
 		@Bean
 		@ConditionalOnMissingBean(AbstractLoggingManager.class)
-		public LoggingManagerMongoImpl loggingManager(@Autowired LoggingProperties properties,
-													  @Autowired MongoTemplate template) {
+		public LoggingManagerMongoImpl mongoLoggingManager(@Autowired LoggingProperties properties,
+														   @Autowired MongoTemplate template) {
 			return new LoggingManagerMongoImpl(properties, template);
 		}
 	}

@@ -23,7 +23,7 @@ import java.util.Arrays;
 @Configuration
 @EnableConfigurationProperties({LoggingProperties.class})
 @AutoConfigureAfter({AopAutoConfiguration.class, MongoAutoConfiguration.class} )
-@ConditionalOnProperty(value = {"custom.logging.enable"})
+@ConditionalOnProperty(prefix = "custom.logging", value = "enable", matchIfMissing = true)
 public class LoggingAutoConfiguration {
 
 	@Bean
