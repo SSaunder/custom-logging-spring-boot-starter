@@ -29,8 +29,9 @@
     custom:
       logging:
         enable: true
-        name: LEARN
-        format: false
+        runtime-env: default // default表示使用默认日志管理，mongog表示日志存储到Mongo服务器，使用Mongo时需要提供spring.data.mongo配置
+        name: LEARN  // 系统名称
+        format: false // 是否格式化日志，进runtime-env有效
     ```
 
 ## 使用方法
